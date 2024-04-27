@@ -138,3 +138,80 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#! Logger Implementation
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'file': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        },
+        'console': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        }
+    },
+    'handlers': {
+        'file_user': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'user.log',
+            'maxBytes': 10485760,   # 10 MB
+            'backupCount': 2,
+            'formatter': 'file',
+            'delay': False
+        },
+        'file_auth': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'auth.log',
+            'maxBytes': 10485760,   # 10 MB
+            'backupCount': 2,
+            'formatter': 'file',
+            'delay': False
+        },
+        'file_shared': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'shared.log',
+            'maxBytes': 10485760,   # 10 MB
+            'backupCount': 2,
+            'formatter': 'file',
+            'delay': False
+        },
+       
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        }
+    },
+    'loggers': {
+        'django': {
+            'level': 'INFO',
+            'handlers': ['console'],
+            'propagate': True
+        },
+        'authentication' : {
+            'level' : 'DEBUG',
+            'handlers' :['file_auth'],
+            'propagate' : True,
+        },
+        'user': {
+            'level': 'INFO',
+            'handlers': ['file_user'],
+            'propagate': True,
+        },
+        'shared': {
+            'level': 'DEBUG',
+            'handlers': ['file_shared'],
+            'propagate': True,
+        },
+        # 'user_authentication': {
+        #     'level': 'DEBUG',
+        #     'handlers': ['file_user_authentication'],
+        #     'propagate': True,
+        # }
+    }
+}
