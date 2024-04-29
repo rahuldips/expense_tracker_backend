@@ -5,7 +5,7 @@ from django.db.models import Q
 from rest_framework import status
 from rest_framework.authentication import get_authorization_header
 from datetime import (datetime,timedelta)
-from administration.models import (ParameterMaster,UserToken,UserLoginActivity)
+from user.models import (ParameterMaster,UserToken,UserLoginActivity)
 from .utils import (generateRefreshToken,exclusion_list)
 from errorcodes import (CODE,MESSAGE,TOKEN)
 from constants import (ACTIVE,INACTIVE,OPS_STRF_TIME)
